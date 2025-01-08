@@ -83,7 +83,7 @@ runs:
         runner_os_id=$(grep VERSION_ID /etc/os-release | cut -d= -f 2 | sed 's/"//g')
         echo "runner_os_id=${runner_os_id}" >> $GITHUB_OUTPUT
 
-        dependencies="cpu-checker qemu-system-x86 libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager"
+        dependencies="cpu-checker qemu-system-x86 libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager dnsutils"
         echo "dependency_list=${dependencies}" >> $GITHUB_OUTPUT
 
         dependencies_sha=$(echo ${dependencies} | md5sum)
@@ -185,7 +185,7 @@ runs:
         fi
         sudo /bin/lvh run --host-mount=${{ inputs.host-mount }} --image ${{ inputs.images-folder-parent }}/images/${{ steps.derive-image-name.outputs.image-name }}.qcow2 \
             --daemonize -p ${{ inputs.ssh-port }}:22 --serial-port ${{ inputs.serial-port }} \
-            --cpu=${{ inputs.cpu }} --mem=${{ inputs.mem }} --cpu-kind ${{ inputs.cpu-kind }} \
+            --cpu=$CPU --mem=$CPU --cpu-kind ${{ inputs.cpu-kind }} \
             --console-log-file /tmp/console.log \
             ${extraArgs[@]}
     - name: Wait for VM's SSH Server
