@@ -85,7 +85,7 @@ runs:
         runner_os_id=$(grep VERSION_ID /etc/os-release | cut -d= -f 2 | sed 's/"//g')
         echo "runner_os_id=${runner_os_id}" >> $GITHUB_OUTPUT
 
-        dependencies="cpu-checker qemu-system-x86 libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager dnsutils dig"
+        dependencies="cpu-checker qemu-system-x86 libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager dnsutils"
         echo "dependency_list=${dependencies}" >> $GITHUB_OUTPUT
 
         dependencies_sha=$(echo ${dependencies} | md5sum)
