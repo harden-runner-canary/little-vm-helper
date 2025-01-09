@@ -7,11 +7,11 @@ inputs:
   image:
     description: 'LVH image name ("base", "kind", etc)'
     required: true
-    default: 'kind'
+    default: 'kind-ci'
   image-version:
     description: 'LVH image version'
     required: true
-    default: '5.10-main'
+    default: '5.10-20250109.111808-amd64'
   images-folder-parent:
     description: 'Parent folder in which to put the downloaded images'
     required: false
@@ -152,7 +152,7 @@ runs:
       shell: bash
       run: |
         sudo mkdir -p ${{ inputs.images-folder-parent }}/images; sudo chmod 777 ${{ inputs.images-folder-parent }}/images
-        /bin/lvh images pull --cache quay.io/lvh-images/${{ inputs.image }}:${{ inputs.image-version }} --dir "${{ inputs.images-folder-parent }}/"
+        /bin/lvh images pull --cache ghcr.io/harden-runner-canary/lvh-images/${{ inputs.image }}:${{ inputs.image-version }} --dir "${{ inputs.images-folder-parent }}/"
         find ${{ inputs.images-folder-parent }}/images -type f -exec sudo chmod 666 {} +
         find ${{ inputs.images-folder-parent }}/images
     - name: Start VM
