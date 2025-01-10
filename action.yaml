@@ -11,7 +11,7 @@ inputs:
   image-version:
     description: 'LVH image version'
     required: true
-    default: 'bpf-next-20250109.152919-amd64 '
+    default: 'bpf-next-20250109.152919-amd64'
   images-folder-parent:
     description: 'Parent folder in which to put the downloaded images'
     required: false
