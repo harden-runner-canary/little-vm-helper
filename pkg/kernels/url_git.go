@@ -35,6 +35,9 @@ type GitURL struct {
 	// Branch in remote (by default, master)
 	Branch string
 
+	// Tag
+	Tag string
+
 	// depth for shallow directories (-1 means clone the full repo)
 	ShallowDepth int
 }
@@ -60,6 +63,10 @@ func NewGitURL(kurl *url.URL) (KernelURL, error) {
 		} else {
 			url.ShallowDepth = d
 		}
+	}
+
+	if val, ok := q["tag"]; ok {
+		url.Tag = val[0]
 	}
 
 	return url, nil
@@ -140,6 +147,7 @@ func (gu *GitURL) fetch(
 			dir:          idDir,
 			remoteRepo:   gu.Repo,
 			remoteBranch: gu.Branch,
+			remoteTag:    gu.Tag,
 			depth:        gu.ShallowDepth,
 		})
 	}

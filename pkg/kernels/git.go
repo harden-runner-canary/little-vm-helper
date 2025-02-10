@@ -19,6 +19,7 @@ type gitCloneOrFetchDirArg struct {
 	dir          string
 	remoteRepo   string
 	remoteBranch string
+	remoteTag    string
 	depth        int
 }
 
@@ -41,12 +42,24 @@ func gitCloneOrFetchDir(ctx context.Context, log logrus.FieldLogger, arg *gitClo
 			"fetch",
 		}
 	} else {
-		args = []string{
-			"clone",
-			"--depth", fmt.Sprintf("%d", arg.depth),
-			"--branch", arg.remoteBranch,
-			arg.remoteRepo,
-			arg.dir,
+
+		if len(arg.remoteTag) > 0 {
+			// https://graphite.dev/guides/git-clone-specific-tag#cloning-and-checking-out-a-tag-in-one-line
+			args = []string{
+				"clone",
+				"--branch", arg.remoteTag,
+				"--single-branch",
+				arg.remoteRepo,
+				arg.dir,
+			}
+		} else {
+			args = []string{
+				"clone",
+				"--depth", fmt.Sprintf("%d", arg.depth),
+				"--branch", arg.remoteBranch,
+				arg.remoteRepo,
+				arg.dir,
+			}
 		}
 
 	}
