@@ -147,6 +147,7 @@ func (gu *GitURL) fetch(
 			dir:          idDir,
 			remoteRepo:   gu.Repo,
 			remoteBranch: gu.Branch,
+			remoteTag:    gu.Tag,
 			depth:        gu.ShallowDepth,
 		})
 	}
